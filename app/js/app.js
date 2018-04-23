@@ -4,27 +4,28 @@ var v = new Vue({
 
     data: {
 
-        "title" : "Hellow World Mister Chang"  
+        "title" : "Hellow World Mister Chang",
+        "greet" : "Hello there Mister!"  
 
     },
 
     methods: {
 
-        hellow: function() {
+        insertSubtitle: function(txt) {
 
-            var t = "Change is good";
+            var t = txt || this.greet;
 
             var x = document.createElement("h2"); 
             x.className = "child"; 
             x.textContent = t;
 
-            this.$el.querySelector("h1").parentNode.appendChild(x);
+            this.$el.querySelector("h1").parentNode.appendChild(x); 
 
         } 
 
     } 
 
 });
+ 
 
-v.hellow();
  
