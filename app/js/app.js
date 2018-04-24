@@ -4,24 +4,67 @@ var v = new Vue({
 
     data: {
 
-        "title" : "Hellow World Mister Chang",
-        "greet" : "Hello there Mister!"  
+        campaign: "",
+        type: "",
+        date: "",
+        placeholders: {
+
+            name: "Choose a name for your campaign",
+            type: "test"
+
+        }
 
     },
 
     methods: {
 
-        insertSubtitle: function(txt) {
+        getDate: function() {
 
-            var t = txt || this.greet;
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
 
-            var x = document.createElement("h2"); 
-            x.className = "child"; 
-            x.textContent = t;
+            if(dd<10) {
+                dd = '0'+ dd
+            } 
 
-            this.$el.querySelector("h1").parentNode.appendChild(x); 
+            if(mm<10) {
+                mm = '0'+ mm
+            } 
 
-        } 
+            today = yyyy + mm + dd;
+            
+            return today;
+
+        },
+
+        copyToClipboard: function(event) {
+
+            var result = event.target
+            var cm = result.parentNode.querySelector("small");
+
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(result);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            try {
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                cm.textContent = "Copied!";
+
+                setTimeout(function() {
+                    cm.textContent = "";
+                }, 1200);
+
+            } catch(e) {
+                cm.textContent = "An error has occured!";
+                console.log(e);
+            }
+
+        }
 
     } 
 
